@@ -1,0 +1,34 @@
+package com.jt.config;
+
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.filter.CharacterEncodingFilter;
+
+import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
+
+@Configuration
+public class MyBatisPageConfig {
+	@Bean
+	public PaginationInterceptor paginationInterceptor() {
+		
+		
+		
+		PaginationInterceptor paginationInterceptor = new PaginationInterceptor();
+		// 设置请求的页面大于最大页后操作， true调回到首页，false 继续请求  默认false
+		// paginationInterceptor.setOverflow(false);
+		// 设置最大单页限制数量，默认 500 条，-1 不受限制
+		// paginationInterceptor.setLimit(500);
+		return paginationInterceptor;
+	}
+	@Bean
+    public FilterRegistrationBean filterRegistrationBean() {
+        FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+        CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
+        characterEncodingFilter.setForceEncoding(true);
+        characterEncodingFilter.setEncoding("UTF-8");
+        registrationBean.setFilter(characterEncodingFilter);
+        return registrationBean;
+    }
+
+}
